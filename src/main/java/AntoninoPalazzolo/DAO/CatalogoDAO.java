@@ -1,6 +1,7 @@
 package AntoninoPalazzolo.DAO;
 
 import AntoninoPalazzolo.entities.Catalogo;
+import AntoninoPalazzolo.entities.Libro;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
@@ -69,6 +70,21 @@ public class CatalogoDAO {
         // Uso getResultList() invece di getSingleResult() perché possono
         // esserci più elementi pubblicati nello stesso anno.
 
+        System.out.println("Elemento trovato: " + found);
+        return found;
+    }
+
+    public List<Libro> findByAutore(String autore) {
+        TypedQuery<Libro> query = em.createQuery(
+                "SELECT c FROM Libro c WHERE c.autore = :autore",
+                Libro.class
+        );
+        query.setParameter("autore", autore);
+        List<Libro> found = query.getResultList();
+        // Cerco tutti i libri di un determinato autore.
+        // Uso Libro invece di Catalogo nella query JPQL perché
+        // il campo autore esiste solo nella classe Libro e non in Catalogo.
+        // Uso getResultList() perché un autore può avere più libri.
         System.out.println("Elemento trovato: " + found);
         return found;
     }

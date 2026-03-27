@@ -3,6 +3,7 @@ package AntoninoPalazzolo.DAO;
 import AntoninoPalazzolo.entities.Catalogo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 public class CatalogoDAO {
@@ -32,6 +33,20 @@ public class CatalogoDAO {
         Catalogo found = query.getSingleResult();
         System.out.println("Elemento trovato: " + found);
         return found;
+    }
+
+
+    public void findElementsByIsbnAndDelete(String isbn) {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        Query query = em.createQuery("DELETE FROM Catalogo a WHERE a.isbn = :isbn");
+        query.setParameter("isbn", isbn);
+
+        query.executeUpdate();
+
+        transaction.commit();
+
+        System.out.println("L'elemento è stato cancellato!");
     }
 
 }

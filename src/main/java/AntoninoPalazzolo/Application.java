@@ -34,6 +34,7 @@ public class Application {
         //cl.saveTheElement(rivista2);
 
         cl.findByIsbn("1"); // testato il metodo cerca per isbn
+        cl.findElementsByIsbnAndDelete("1"); //testato il metodo remove
         em.close();
         emf.close();
     }

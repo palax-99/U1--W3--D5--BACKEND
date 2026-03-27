@@ -1,14 +1,15 @@
 package AntoninoPalazzolo.entities;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 @Entity
 @DiscriminatorValue("rivista")
 public class Rivista extends Catalogo {
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Periodicita periodicita;
 
     protected Rivista() {

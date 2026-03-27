@@ -37,6 +37,7 @@ public class Application {
         //cl.findElementsByIsbnAndDelete("1"); //testato il metodo remove
         cl.findByAnno(1994);
         cl.findByAutore("Umberto Eco");
+        cl.findByTitoloOrParteDiEssa("The");
         em.close();
         emf.close();
     }

@@ -5,9 +5,6 @@ import jakarta.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("libro")
-// Valore che Hibernate inserirà nella colonna "catalog_type"
-// per identificare che questa riga appartiene a un Libro
-// (e non a una Rivista)
 public class Libro extends Catalogo {
     private String autore;
     private String genere;

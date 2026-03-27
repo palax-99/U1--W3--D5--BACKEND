@@ -89,5 +89,18 @@ public class CatalogoDAO {
         return found;
     }
 
+    public List<Catalogo> findByTitoloOrParteDiEssa(String titolo) {
+        TypedQuery<Catalogo> query = em.createQuery(
+                "SELECT c FROM Catalogo c WHERE c.titolo LIKE :titolo", Catalogo.class);
+        query.setParameter("titolo", "%" + titolo + "%");
+        List<Catalogo> found = query.getResultList();
+        // Cerco tutti gli elementi del catalogo il cui titolo contiene
+        // la stringa passata come parametro, anche parzialmente.
+        // Il simbolo % prima e dopo il parametro indica "qualsiasi cosa
+        // prima e dopo"
+        System.out.println("Elemento trovato: " + found);
+        return found;
+    }
+
 
 }

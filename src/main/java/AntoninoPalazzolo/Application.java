@@ -32,6 +32,8 @@ public class Application {
         //cl.saveTheElement(libro3);
         //cl.saveTheElement(rivista1); //testato il metodo saveTheElement
         //cl.saveTheElement(rivista2);
+
+        cl.findByIsbn("1"); // testato il metodo cerca per isbn
         em.close();
         emf.close();
     }

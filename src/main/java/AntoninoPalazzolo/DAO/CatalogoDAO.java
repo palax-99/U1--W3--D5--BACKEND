@@ -6,6 +6,8 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
+import java.util.List;
+
 public class CatalogoDAO {
     private final EntityManager em;
 
@@ -33,6 +35,10 @@ public class CatalogoDAO {
         Catalogo found = query.getSingleResult();
         System.out.println("Elemento trovato: " + found);
         return found;
+        // Creo una query JPQL che cerca un elemento del catalogo
+        // il cui ISBN corrisponde a quello passato come parametro.
+        // Uso getSingleResult() perché ISBN è unique — esiste sempre un solo risultato.
+        //non apro la transaction perchè è un metodo di lettura
     }
 
 
@@ -47,6 +53,25 @@ public class CatalogoDAO {
         transaction.commit();
 
         System.out.println("L'elemento è stato cancellato!");
+        // Prima trovo l'elemento tramite ISBN usando il metodo findByIsbn.
+        // Non uso em.find() perché ISBN non è la PK — è un campo univoco.
+        // Poi apro la transazione, rimuovo l'elemento e faccio il commit.
     }
+
+    public List<Catalogo> findByAnno(int annoPubblicazione) {
+        TypedQuery<Catalogo> query = em.createQuery(
+                "SELECT c FROM Catalogo c WHERE c.annoPubblicazione = :annoPubblicazione",
+                Catalogo.class
+        );
+        query.setParameter("annoPubblicazione", annoPubblicazione);
+        List<Catalogo> found = query.getResultList();
+        // Cerco tutti gli elementi del catalogo pubblicati in un certo anno.
+        // Uso getResultList() invece di getSingleResult() perché possono
+        // esserci più elementi pubblicati nello stesso anno.
+
+        System.out.println("Elemento trovato: " + found);
+        return found;
+    }
+
 
 }
